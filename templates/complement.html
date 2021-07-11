@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>complements</title>
+</head>
+
+<body>
+    <h1>select your complements:</h1>
+
+    family pizza
+    <br>
+    size: {{ session["size"] }}
+    <br>
+    flavor: {{ session["flavor"] }}
+    <br><br>
+    <form action="{{ url_for('complement') }}" method="post">
+        <input type="radio" name="complement" id="deditos" value="deditos">
+        <label for="deditos">deditos</label>
+        <br>
+        <input type="radio" name="complement" id="panajo" value="panajo">
+        <label for="panajo">pan con ajo</label>
+        <br>
+        <input type="radio" name="complement" id="nuditos" value="nuditos" checked="checked">
+        <label for="nuditos">nuditos</label>
+        <br><br>
+        <input type="submit" value="Send">
+    </form>
+</body>
+
+</html>

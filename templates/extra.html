@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>extra</title>
+</head>
+
+<body>
+    <h1>select your extra items:</h1>
+
+    family pizza
+    <br>
+    size: {{ session["size"] }}
+    <br>
+    flavor: {{ session["flavor"] }}
+    <br>
+    complement: {{ session["complement"] }}
+    <br><br>
+    <form action="{{ url_for('extra') }}" method="post">
+        <input type="checkbox" name="extra" id="extra1" value="postre">
+        <label for="postre">postre</label>
+        <br>
+        <input type="checkbox" name="extra" id="extra2" value="wings">
+        <label for="wings">wings</label>
+        <br>
+        <input type="checkbox" name="extra" id="extra3" value="bebida">
+        <label for="bebida">bebida</label>
+        <br><br>
+        <input type="submit" value="Send">
+    </form>
+</body>
+
+</html>
