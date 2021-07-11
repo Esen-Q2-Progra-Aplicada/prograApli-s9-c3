@@ -13,7 +13,7 @@ class PaymentManager:
         elif size == 2:
             price = 17.0
         elif size == 3:
-            price = 14.0
+            price = 24.0
         return price
 
     def checkFlavorPrice(self, flavor):
@@ -55,6 +55,7 @@ class PaymentManager:
 
     def createOrderData(self):
         orderData = []
+        orderTotal = 0.0
         # size
         size = int(self.session.get("size"))
         orderData.append(
@@ -64,6 +65,8 @@ class PaymentManager:
                 "price": self.checkSizePrice(size),
             }
         )
+        orderTotal += self.checkSizePrice(size)
+
         # flavor
         flavor = self.session.get("flavor")
         orderData.append(
@@ -73,6 +76,8 @@ class PaymentManager:
                 "price": self.checkFlavorPrice(flavor),
             }
         )
+        orderTotal += self.checkFlavorPrice(flavor)
+
         # complement
         complement = self.session.get("complement")
         orderData.append(
@@ -82,8 +87,12 @@ class PaymentManager:
                 "price": self.checkComplementPrice(complement),
             }
         )
+        orderTotal += self.checkComplementPrice(complement)
+
         # extra
         extraList = self.session.get("extra")
         extraPriceList, total = self.checkExtraPrice(extraList)
         orderData.append({"type": "extra", "value": extraPriceList, "total": total})
+        orderTotal += total
+        orderData.append({"type": "total order", "price": orderTotal})
         return orderData

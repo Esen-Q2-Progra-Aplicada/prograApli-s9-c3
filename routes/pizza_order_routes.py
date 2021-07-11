@@ -45,5 +45,4 @@ class PizzaOrderRoutes:
         def payment():
             payment = PaymentManager(session)
             orderPriceList = payment.processPriceList()
-            print(orderPriceList)
             return render_template("payment.html", orderPriceList=orderPriceList)
