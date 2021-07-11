@@ -16,9 +16,9 @@
     <form action="{{ url_for('size') }}" method="post">
         <label for="size">choose your size:</label><br>
         <select name="size" id="size">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
+            {% for element in sizeList %}
+            <option value="{{ element['value'] }}">{{ element['description'] }}</option>
+            {% endfor %}
         </select>
         <input type="submit" value="Send">
     </form>

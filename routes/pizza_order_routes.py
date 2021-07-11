@@ -1,5 +1,6 @@
 from flask import render_template, request, redirect, session
 from logic.payment_logic import PaymentManager
+from logic.size_logic import SizeLogic
 
 
 class PizzaOrderRoutes:
@@ -8,7 +9,10 @@ class PizzaOrderRoutes:
         @app.route("/size", methods=["GET", "POST"])
         def size():
             if request.method == "GET":
-                return render_template("size.html")
+                logic = SizeLogic()
+                sizeList = logic.getAll()
+                print(sizeList)
+                return render_template("size.html", sizeList=sizeList)
             elif request.method == "POST":
                 selectedSize = request.form["size"]
                 session["size"] = selectedSize

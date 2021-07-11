@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>size crud</title>
+</head>
+
+<body>
+    <h1>size crud</h1>
+
+    <a href="{{ url_for('sizeNEW', type='new') }}">create a new size</a>
+    <table>
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>description</th>
+                <th>value</th>
+                <th>price</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for element in sizeList %}
+            <tr>
+                <td>{{ element["id"] }}</td>
+                <td>{{ element["description"] }}</td>
+                <td>{{ element["value"] }}</td>
+                <td>{{ element["price"] }}</td>
+                <td>update</td>
+                <td>delete</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+
+</html>
