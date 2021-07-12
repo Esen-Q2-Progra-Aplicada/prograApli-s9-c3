@@ -1,4 +1,4 @@
-from flask import render_template, request
+from flask import render_template, request, redirect
 from logic.size_logic import SizeLogic
 
 
@@ -11,15 +11,27 @@ class SizeRoutes:
             sizeList = logic.getAll()
             return render_template("sizeCRUD.html", sizeList=sizeList)
 
-        @app.route("/sizeNEW", methods=["GET", "POST"])
-        def sizeNEW():
+        @app.route("/sizeFORM", methods=["GET", "POST"])
+        def sizeFORM():
             if request.method == "GET":
+                currentSize = None
                 if request.args.get("type") == "update":
-                    pass
-                return render_template("sizeNEW.html")
+                    logic = SizeLogic()
+                    id = int(request.args.get("id"))
+                    currentSize = logic.getRegisterById(id)
+                    print(currentSize)
+                return render_template("sizeFORM.html", sizeObj=currentSize)
+
             elif request.method == "POST":
                 if request.args.get("type") == "update":
-                    pass
+                    logic = SizeLogic()
+                    id = request.form["id"]
+                    size = {
+                        "description": request.form["description"],
+                        "value": request.form["value"],
+                        "price": request.form["price"],
+                    }
+                    rows = logic.update(id, size)
                 elif request.args.get("type") == "new":
                     logic = SizeLogic()
                     size = {
@@ -28,18 +40,12 @@ class SizeRoutes:
                         "price": request.form["price"],
                     }
                     rows = logic.insert(size)
-                return f"size new posted rowsAffected: {rows}"
+                return redirect("sizeCRUD")
 
-        @app.route("/sizeUPDATE", methods=["GET", "POST"])
-        def sizeUPDATE():
-            if request.method == "GET":
-                return render_template("sizeUPDATE.html")
-            elif request.method == "POST":
-                return "size update posted"
-
-        @app.route("/sizeDELETE", methods=["GET", "POST"])
+        @app.route("/sizeDELETE", methods=["POST"])
         def sizeDELETE():
-            if request.method == "GET":
-                return render_template("sizeDELETE.html")
-            elif request.method == "POST":
-                return "size delete posted"
+            if request.method == "POST":
+                logic = SizeLogic()
+                id = request.form["id"]
+                rows = logic.delete(id)
+                return redirect("sizeCRUD")

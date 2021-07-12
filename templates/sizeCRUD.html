@@ -11,7 +11,7 @@
 <body>
     <h1>size crud</h1>
 
-    <a href="{{ url_for('sizeNEW', type='new') }}">create a new size</a>
+    <a href="{{ url_for('sizeFORM', type='new') }}">create a new size</a>
     <table>
         <thead>
             <tr>
@@ -29,8 +29,13 @@
                 <td>{{ element["description"] }}</td>
                 <td>{{ element["value"] }}</td>
                 <td>{{ element["price"] }}</td>
-                <td>update</td>
-                <td>delete</td>
+                <td><a href="{{ url_for('sizeFORM', type='update') }}&id={{ element['id'] }}">update</a></td>
+                <td>
+                    <form action="{{ url_for('sizeDELETE') }}" method="post">
+                        <input type="hidden" name="id" id="id" value="{{ element['id'] }}">
+                        <input type="submit" value="Delete">
+                    </form>
+                </td>
             </tr>
             {% endfor %}
         </tbody>

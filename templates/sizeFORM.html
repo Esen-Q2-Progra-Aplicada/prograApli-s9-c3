@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% if sizeObj %}
+
+{% set type = 'update' %}
+{% set button = 'Update' %}
+
+{% else %}
+
+{% set type = 'new' %}
+{% set button = 'Create' %}
+
+{% endif %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>size {{ type }}</title>
+</head>
+
+<body>
+
+
+    <h1>size {{ type }}</h1>
+
+    <form action="{{ url_for('sizeFORM', type=type) }}" method="post">
+        {% if sizeObj %}
+        <label for="idshow">id:</label>
+        <input type="text" id="idshow" name="idshow" value="{{ sizeObj['id'] }}" readonly>
+        <br><br>
+        {% endif %}
+        <label for="description">description:</label>
+        <input type="text" id="description" name="description"
+            value="{% if sizeObj %}{{ sizeObj['description'] }}{% endif %}">
+        <br><br>
+        <label for="value">value:</label>
+        <input type="text" id="value" name="value" value="{% if sizeObj %}{{ sizeObj['value'] }}{% endif %}">
+        <br><br>
+        <label for="price">price:</label>
+        <input type="text" id="price" name="price" value="{% if sizeObj %}{{ sizeObj['price'] }}{% endif %}">
+        <br><br>
+        {% if sizeObj %}
+        <input type="hidden" name="id" id="id" value="{{ sizeObj['id'] }}">
+        {% endif %}
+        <input type="submit" value="{{ button }}">
+    </form>
+</body>
+
+</html>
