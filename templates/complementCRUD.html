@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>complement crud</title>
+</head>
+
+<body>
+    <h1>complement crud</h1>
+
+    <a href="{{ url_for('complementFORM', type='new') }}">create a new complement</a>
+    <table>
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>description</th>
+                <th>code</th>
+                <th>price</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for element in complementList %}
+            <tr>
+                <td>{{ element["id"] }}</td>
+                <td>{{ element["description"] }}</td>
+                <td>{{ element["code"] }}</td>
+                <td>{{ element["price"] }}</td>
+                <td><a href="{{ url_for('complementFORM', type='update') }}&id={{ element['id'] }}">update</a></td>
+                <td>
+                    <form action="{{ url_for('complementDELETE') }}" method="post">
+                        <input type="hidden" name="id" id="id" value="{{ element['id'] }}">
+                        <input type="submit" value="Delete">
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+
+</html>
