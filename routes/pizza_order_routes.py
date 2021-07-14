@@ -1,5 +1,5 @@
 from flask import render_template, request, redirect, session
-from logic.payment_logic import PaymentManager
+from logic.payment_manager import PaymentManager
 from logic.size_logic import SizeLogic
 
 
