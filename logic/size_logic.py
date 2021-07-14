@@ -34,7 +34,8 @@ class SizeLogic(PybaLogic):
         database = self.createDatabaseObj()
         sql = (
             f"UPDATE {self.table} "
-            + f"SET description = '{size['description']}', value = {size['value']}, price = '{size['price']}' "
+            + f"SET description = '{size['description']}', "
+            + f"value = {size['value']}, price = '{size['price']}' "
             + f"WHERE id = {id};"
         )
         rows = database.executeNonQueryRows(sql)

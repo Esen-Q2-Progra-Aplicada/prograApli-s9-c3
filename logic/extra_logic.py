@@ -23,7 +23,10 @@ class ExtraLogic(PybaLogic):
 
     def insert(self, extra):
         database = self.createDatabaseObj()
-        sql = f"insert into {self.table} () values(0,'{extra['name']}');"
+        sql = (
+            f"insert into {self.table} (id, description, code, price) "
+            + f"values(0,'{extra['description']}', '{extra['code']}', {extra['price']});"
+        )
         rows = database.executeNonQueryRows(sql)
         return rows
 
@@ -31,7 +34,8 @@ class ExtraLogic(PybaLogic):
         database = self.createDatabaseObj()
         sql = (
             f"UPDATE {self.table} "
-            + f"SET key1 = '{extra['name']}', key2 = value2  "
+            + f"SET description = '{extra['description']}', "
+            + f"code = '{extra['code']}', price = '{extra['price']}'  "
             + f"WHERE id = {id};"
         )
         rows = database.executeNonQueryRows(sql)

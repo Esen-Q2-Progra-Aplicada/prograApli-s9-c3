@@ -23,7 +23,10 @@ class FlavorLogic(PybaLogic):
 
     def insert(self, flavor):
         database = self.createDatabaseObj()
-        sql = f"insert into {self.table} () values(0,'{flavor['description']}', '{flavor['code']}', {flavor['price']});"
+        sql = (
+            f"insert into {self.table} (id, description, code, price) "
+            + f"values(0,'{flavor['description']}', '{flavor['code']}', {flavor['price']});"
+        )
         rows = database.executeNonQueryRows(sql)
         return rows
 
@@ -31,7 +34,8 @@ class FlavorLogic(PybaLogic):
         database = self.createDatabaseObj()
         sql = (
             f"UPDATE {self.table} "
-            + f"SET description = '{flavor['description']}', code = '{flavor['code']}', price = {flavor['price']}  "
+            + f"SET description = '{flavor['description']}', "
+            + f"code = '{flavor['code']}', price = {flavor['price']}  "
             + f"WHERE id = {id};"
         )
         rows = database.executeNonQueryRows(sql)

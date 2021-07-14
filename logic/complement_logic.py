@@ -23,7 +23,10 @@ class ComplementLogic(PybaLogic):
 
     def insert(self, complement):
         database = self.createDatabaseObj()
-        sql = f"insert into {self.table} () values(0,'{complement['description']}', '{complement['code']}', {complement['price']});"
+        sql = (
+            f"insert into {self.table} (id, description, code, price) "
+            + f"values(0,'{complement['description']}', '{complement['code']}', {complement['price']});"
+        )
         rows = database.executeNonQueryRows(sql)
         return rows
 
@@ -31,7 +34,8 @@ class ComplementLogic(PybaLogic):
         database = self.createDatabaseObj()
         sql = (
             f"UPDATE {self.table} "
-            + f"SET description = '{complement['description']}', code = '{complement['code']}', price = {complement['price']}  "
+            + f"SET description = '{complement['description']}', "
+            + f"code = '{complement['code']}', price = {complement['price']}  "
             + f"WHERE id = {id};"
         )
         rows = database.executeNonQueryRows(sql)
