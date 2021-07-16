@@ -20,15 +20,12 @@
     complement: {{ session["complement"] }}
     <br><br>
     <form action="{{ url_for('extra') }}" method="post">
-        <input type="checkbox" name="extra" id="extra1" value="postre">
-        <label for="postre">postre</label>
+        {% for extra in extraList %}
+        <input type="checkbox" name="extra" id="{{ extra['code'] }}" value="{{ extra['code'] }}">
+        <label for="{{ extra['code'] }}">{{ extra['description'] }}</label>
         <br>
-        <input type="checkbox" name="extra" id="extra2" value="wings">
-        <label for="wings">wings</label>
+        {% endfor %}
         <br>
-        <input type="checkbox" name="extra" id="extra3" value="bebida">
-        <label for="bebida">bebida</label>
-        <br><br>
         <input type="submit" value="Send">
     </form>
 </body>

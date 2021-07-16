@@ -1,6 +1,9 @@
 from flask import render_template, request, redirect, session
 from logic.payment_manager import PaymentManager
 from logic.size_logic import SizeLogic
+from logic.flavor_logic import FlavorLogic
+from logic.complement_logic import ComplementLogic
+from logic.extra_logic import ExtraLogic
 
 
 class PizzaOrderRoutes:
@@ -21,7 +24,10 @@ class PizzaOrderRoutes:
         @app.route("/flavor", methods=["GET", "POST"])
         def flavor():
             if request.method == "GET":
-                return render_template("flavor.html")
+                logic = FlavorLogic()
+                flavorList = logic.getAll()
+                print(flavorList)
+                return render_template("flavor.html", flavorList=flavorList)
             elif request.method == "POST":
                 selectedFlavor = request.form["flavor"]
                 session["flavor"] = selectedFlavor
@@ -30,7 +36,9 @@ class PizzaOrderRoutes:
         @app.route("/complement", methods=["GET", "POST"])
         def complement():
             if request.method == "GET":
-                return render_template("complement.html")
+                logic = ComplementLogic()
+                complementList = logic.getAll()
+                return render_template("complement.html", complementList=complementList)
             elif request.method == "POST":
                 selectedComplement = request.form["complement"]
                 session["complement"] = selectedComplement
@@ -39,7 +47,9 @@ class PizzaOrderRoutes:
         @app.route("/extra", methods=["GET", "POST"])
         def extra():
             if request.method == "GET":
-                return render_template("extra.html")
+                logic = ExtraLogic()
+                extraList = logic.getAll()
+                return render_template("extra.html", extraList=extraList)
             elif request.method == "POST":
                 extraString = request.form.getlist("extra")
                 session["extra"] = extraString

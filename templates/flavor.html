@@ -16,18 +16,12 @@
     size: {{ session["size"] }}
     <br><br>
     <form action="{{ url_for('flavor') }}" method="post">
-        <input type="radio" name="flavor" id="peperoni" value="peperoni">
-        <label for="peperoni">peperoni</label>
+        {% for flavor in flavorList %}
+        <input type="radio" name="flavor" id="{{ flavor['code'] }}" value="{{ flavor['code'] }}">
+        <label for="{{ flavor['code'] }}">{{ flavor['description'] }}</label>
         <br>
-        <input type="radio" name="flavor" id="hawaiana" value="hawaiana">
-        <label for="hawaiana">hawaiana</label>
+        {% endfor %}
         <br>
-        <input type="radio" name="flavor" id="meatlovers" value="meatlovers" checked="checked">
-        <label for="meatlovers">meatlovers</label>
-        <br>
-        <input type="radio" name="flavor" id="mixed" value="mixed">
-        <label for="mixed">mixed</label>
-        <br><br>
         <input type="submit" value="Send">
     </form>
 </body>

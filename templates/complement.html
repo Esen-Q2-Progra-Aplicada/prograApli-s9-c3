@@ -18,15 +18,12 @@
     flavor: {{ session["flavor"] }}
     <br><br>
     <form action="{{ url_for('complement') }}" method="post">
-        <input type="radio" name="complement" id="deditos" value="deditos">
-        <label for="deditos">deditos</label>
+        {% for complement in complementList %}
+        <input type="radio" name="complement" id="{{ complement['code'] }}" value="{{ complement['code'] }}">
+        <label for="{{ complement['code'] }}">{{ complement['description'] }}</label>
         <br>
-        <input type="radio" name="complement" id="panajo" value="panajo">
-        <label for="panajo">pan con ajo</label>
+        {% endfor %}
         <br>
-        <input type="radio" name="complement" id="nuditos" value="nuditos" checked="checked">
-        <label for="nuditos">nuditos</label>
-        <br><br>
         <input type="submit" value="Send">
     </form>
 </body>
