@@ -4,23 +4,26 @@ from logic.size_logic import SizeLogic
 
 class SizeRoutes:
     @staticmethod
-    def configure_routes(app):
+    def configure_routes(app, templateFolder=""):
+        templateFolder = "/admin/"
+
         @app.route("/sizeCRUD")
         def sizeCRUD():
             logic = SizeLogic()
             sizeList = logic.getAll()
-            return render_template("sizeCRUD.html", sizeList=sizeList)
+            url = f"{templateFolder}sizeCRUD.html"
+            return render_template(url, sizeList=sizeList)
 
         @app.route("/sizeFORM", methods=["GET", "POST"])
         def sizeFORM():
             if request.method == "GET":
                 currentSize = None
+                url = f"{templateFolder}sizeFORM.html"
                 if request.args.get("type") == "update":
                     logic = SizeLogic()
                     id = int(request.args.get("id"))
                     currentSize = logic.getRegisterById(id)
-                    print(currentSize)
-                return render_template("sizeFORM.html", sizeObj=currentSize)
+                return render_template(url, sizeObj=currentSize)
 
             elif request.method == "POST":
                 if request.args.get("type") == "update":

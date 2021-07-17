@@ -4,23 +4,24 @@ from logic.flavor_logic import FlavorLogic
 
 class FlavorRoutes:
     @staticmethod
-    def configure_routes(app):
+    def configure_routes(app, templateFolder=""):
         @app.route("/flavorCRUD")
         def flavorCRUD():
             logic = FlavorLogic()
             flavorList = logic.getAll()
-            return render_template("flavorCRUD.html", flavorList=flavorList)
+            url = f"{templateFolder}flavorCRUD.html"
+            return render_template(url, flavorList=flavorList)
 
         @app.route("/flavorFORM", methods=["GET", "POST"])
         def flavorFORM():
             if request.method == "GET":
                 currentFlavor = None
+                url = f"{templateFolder}flavorFORM.html"
                 if request.args.get("type") == "update":
                     logic = FlavorLogic()
                     id = int(request.args.get("id"))
                     currentFlavor = logic.getRegisterById(id)
-                    print(currentFlavor)
-                return render_template("flavorFORM.html", flavorObj=currentFlavor)
+                return render_template(url, flavorObj=currentFlavor)
 
             elif request.method == "POST":
                 if request.args.get("type") == "update":

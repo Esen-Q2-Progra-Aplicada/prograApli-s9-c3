@@ -4,23 +4,24 @@ from logic.extra_logic import ExtraLogic
 
 class ExtraRoutes:
     @staticmethod
-    def configure_routes(app):
+    def configure_routes(app, templateFolder=""):
         @app.route("/extraCRUD")
         def extraCRUD():
             logic = ExtraLogic()
             extraList = logic.getAll()
-            return render_template("extraCRUD.html", extraList=extraList)
+            url = f"{templateFolder}extraCRUD.html"
+            return render_template(url, extraList=extraList)
 
         @app.route("/extraFORM", methods=["GET", "POST"])
         def extraFORM():
             if request.method == "GET":
                 currentExtra = None
+                url = f"{templateFolder}extraFORM.html"
                 if request.args.get("type") == "update":
                     logic = ExtraLogic()
                     id = int(request.args.get("id"))
                     currentExtra = logic.getRegisterById(id)
-                    print(currentExtra)
-                return render_template("extraFORM.html", extraObj=currentExtra)
+                return render_template(url, extraObj=currentExtra)
 
             elif request.method == "POST":
                 if request.args.get("type") == "update":

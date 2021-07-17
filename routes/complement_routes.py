@@ -4,25 +4,24 @@ from logic.complement_logic import ComplementLogic
 
 class ComplementRoutes:
     @staticmethod
-    def configure_routes(app):
+    def configure_routes(app, templateFolder=""):
         @app.route("/complementCRUD")
         def complementCRUD():
             logic = ComplementLogic()
             complementList = logic.getAll()
-            return render_template("complementCRUD.html", complementList=complementList)
+            url = f"{templateFolder}complementCRUD.html"
+            return render_template(url, complementList=complementList)
 
         @app.route("/complementFORM", methods=["GET", "POST"])
         def complementFORM():
             if request.method == "GET":
                 currentComplement = None
+                url = f"{templateFolder}complementFORM.html"
                 if request.args.get("type") == "update":
                     logic = ComplementLogic()
                     id = int(request.args.get("id"))
                     currentComplement = logic.getRegisterById(id)
-                    print(currentComplement)
-                return render_template(
-                    "complementFORM.html", complementObj=currentComplement
-                )
+                return render_template(url, complementObj=currentComplement)
 
             elif request.method == "POST":
                 if request.args.get("type") == "update":

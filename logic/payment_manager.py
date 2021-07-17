@@ -63,10 +63,11 @@ class PaymentManager:
 
         # flavor
         flavor = self.session.get("flavor")
+        flavorDescription = self.payLogic.getFlavorByCode(flavor)[0]["description"]
         orderData.append(
             {
                 "type": "flavor",
-                "value": flavor,
+                "value": flavorDescription,
                 "price": self.checkFlavorPrice(flavor),
             }
         )
@@ -74,10 +75,12 @@ class PaymentManager:
 
         # complement
         complement = self.session.get("complement")
+        complementList = self.payLogic.getComplementByCode(complement)
+        complementDescription = complementList[0]["description"]
         orderData.append(
             {
                 "type": "complement",
-                "value": complement,
+                "value": complementDescription,
                 "price": self.checkComplementPrice(complement),
             }
         )

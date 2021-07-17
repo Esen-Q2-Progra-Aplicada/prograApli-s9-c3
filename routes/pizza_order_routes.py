@@ -8,14 +8,14 @@ from logic.extra_logic import ExtraLogic
 
 class PizzaOrderRoutes:
     @staticmethod
-    def configure_routes(app):
+    def configure_routes(app, templateFolder=""):
         @app.route("/size", methods=["GET", "POST"])
         def size():
             if request.method == "GET":
                 logic = SizeLogic()
                 sizeList = logic.getAll()
-                print(sizeList)
-                return render_template("size.html", sizeList=sizeList)
+                url = f"{templateFolder}size.html"
+                return render_template(url, sizeList=sizeList)
             elif request.method == "POST":
                 selectedSize = request.form["size"]
                 session["size"] = selectedSize
@@ -26,8 +26,8 @@ class PizzaOrderRoutes:
             if request.method == "GET":
                 logic = FlavorLogic()
                 flavorList = logic.getAll()
-                print(flavorList)
-                return render_template("flavor.html", flavorList=flavorList)
+                url = f"{templateFolder}flavor.html"
+                return render_template(url, flavorList=flavorList)
             elif request.method == "POST":
                 selectedFlavor = request.form["flavor"]
                 session["flavor"] = selectedFlavor
@@ -38,7 +38,8 @@ class PizzaOrderRoutes:
             if request.method == "GET":
                 logic = ComplementLogic()
                 complementList = logic.getAll()
-                return render_template("complement.html", complementList=complementList)
+                url = f"{templateFolder}complement.html"
+                return render_template(url, complementList=complementList)
             elif request.method == "POST":
                 selectedComplement = request.form["complement"]
                 session["complement"] = selectedComplement
@@ -49,7 +50,8 @@ class PizzaOrderRoutes:
             if request.method == "GET":
                 logic = ExtraLogic()
                 extraList = logic.getAll()
-                return render_template("extra.html", extraList=extraList)
+                url = f"{templateFolder}extra.html"
+                return render_template(url, extraList=extraList)
             elif request.method == "POST":
                 extraString = request.form.getlist("extra")
                 session["extra"] = extraString
@@ -59,4 +61,5 @@ class PizzaOrderRoutes:
         def payment():
             payment = PaymentManager(session)
             orderPriceList = payment.processPriceList()
-            return render_template("payment.html", orderPriceList=orderPriceList)
+            url = f"{templateFolder}payment.html"
+            return render_template(url, orderPriceList=orderPriceList)

@@ -44,41 +44,48 @@
     <table>
         <thead class="head">
             <tr>
-                <th>type/description</th>
+                <th>type</th>
+                <th>description</th>
                 <th>price ($)</th>
             </tr>
         </thead>
         <tbody>
             <!-- size -->
             <tr>
-                <th>{{ orderPriceList[0]["type"] }} :: {{ orderPriceList[0]["value"] }} pizzas</th>
+                <th>{{ orderPriceList[0]["type"] }}</th>
+                <th>{{ orderPriceList[0]["value"] }} pizza(s)</th>
                 <th>{{ orderPriceList[0]["price"] }}</th>
             </tr>
 
             <!-- flavor -->
             <tr>
-                <th>{{ orderPriceList[1]["type"] }} :: {{ orderPriceList[1]["value"] }} </th>
+                <th>{{ orderPriceList[1]["type"] }}</th>
+                <th>{{ orderPriceList[1]["value"] }} </th>
                 <th>{{ orderPriceList[1]["price"] }}</th>
             </tr>
 
             <!-- complement -->
             <tr>
-                <th>{{ orderPriceList[2]["type"] }} :: {{ orderPriceList[2]["value"] }} </th>
+                <th>{{ orderPriceList[2]["type"] }}</th>
+                <th>{{ orderPriceList[2]["value"] }} </th>
                 <th>{{ orderPriceList[2]["price"] }}</th>
             </tr>
 
             <!-- extras -->
             {% for item in orderPriceList[3]["value"] %}
             <tr>
-                <th>{{ orderPriceList[3]["type"] }} :: {{ item["item"] }} :: ( {{ item["price"] }} ) </th>
+                <th>{{ orderPriceList[3]["type"] }}</th>
+                <th>{{ item["item"] }} :: ( {{ item["price"] }} ) </th>
                 <th></th>
             </tr>
             {% endfor %}
             <tr>
+                <th></th>
                 <th>total extras:</th>
                 <th>{{ orderPriceList[3]["total"] }}</th>
             </tr>
             <tr class="orderTotal">
+                <th></th>
                 <th>{{ orderPriceList[4]["type"] }}:</th>
                 <th>{{ orderPriceList[4]["price"] }}</th>
             </tr>

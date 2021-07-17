@@ -3,7 +3,8 @@ from flask import render_template
 
 class MainRoutes:
     @staticmethod
-    def configure_routes(app):
+    def configure_routes(app, templateFolder=""):
         @app.route("/")
         def home():
-            return render_template("index.html")
+            url = f"{templateFolder}index.html"
+            return render_template(url)
