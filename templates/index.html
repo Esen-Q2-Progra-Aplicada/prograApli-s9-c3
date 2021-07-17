@@ -1,14 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>pizza palace</title>
-</head>
+{% block title %}pizza palace{% endblock title %}
 
-<body>
+{% block content %}
+<div class="container-fluid">
     <h1>pizza palace</h1>
     <p>this is the pizza palace</p>
 
@@ -22,6 +17,5 @@
     <a href="{{ url_for('complementCRUD') }}">complement crud</a>
     <br>
     <a href="{{ url_for('extraCRUD') }}">extra crud</a>
-</body>
-
-</html>
+</div>
+{% endblock content %}
