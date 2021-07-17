@@ -27,12 +27,6 @@ class PaymentManager:
     def checkComplementPrice(self, complement):
         price = 0.0
         complementList = self.payLogic.getComplementByCode(complement)
-        if complement == "deditos":
-            price = 4.0
-        elif complement == "panajo":
-            price = 5.0
-        elif complement == "nuditos":
-            price = 2.0
         if len(complementList) > 0:
             price = float(complementList[0]["price"])
         return price
@@ -41,15 +35,16 @@ class PaymentManager:
         print(extraList)
         extraPriceList = []
         total = 0
-        if "postre" in extraList:
-            extraPriceList.append({"item": "postre", "price": 4.0})
-            total += 4.0
-        if "wings" in extraList:
-            extraPriceList.append({"item": "wings", "price": 5.0})
-            total += 5.0
-        if "bebida" in extraList:
-            extraPriceList.append({"item": "bebida", "price": 2.0})
-            total += 2.0
+        for element in extraList:
+            elementDict = self.payLogic.getExtraByCode(element)[0]
+            print(elementDict)
+            extraPriceList.append(
+                {
+                    "item": elementDict["description"],
+                    "price": float(elementDict["price"]),
+                }
+            )
+            total += float(elementDict["price"])
         return tuple((extraPriceList, total))
 
     def createOrderData(self):
