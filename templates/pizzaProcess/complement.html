@@ -23,20 +23,25 @@
     </div>
 
     <div class="container pt-3">
-        <form action="{{ url_for('complement') }}" method="post">
-            {% for complement in complementList %}
-            <div class="form-check">
-                <label for="{{ complement['code'] }}" class="form-check-label">
-                    <input type="radio" class="form-check-input" name="complement" id="{{ complement['code'] }}"
-                        value="{{ complement['code'] }}">
-                    {{ complement['description'] }}
-                </label>
+        <div class="card" style="width:400px">
+            <div class="card-body">
+                <form action="{{ url_for('complement') }}" method="post">
+                    {% for complement in complementList %}
+                    <div class="form-check">
+                        <label for="{{ complement['code'] }}" class="form-check-label">
+                            <input type="radio" class="form-check-input" name="complement" id="{{ complement['code'] }}"
+                                value="{{ complement['code'] }}" {% if complement['code']=='deditos' %} checked
+                                {%endif%}>
+                            {{ complement['description'] }}
+                        </label>
+                    </div>
+                    {% endfor %}
+                    <div class="container-fluid pt-3">
+                        <input type="submit" class="btn btn-success" value="Send">
+                    </div>
+                </form>
             </div>
-            {% endfor %}
-            <div class="container-fluid pt-3">
-                <input type="submit" class="btn btn-success" value="Send">
-            </div>
-        </form>
+        </div>
     </div>
 
     <div class="container-fluid pt-3">

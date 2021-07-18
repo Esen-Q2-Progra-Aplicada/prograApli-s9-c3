@@ -10,24 +10,34 @@
     </div>
 
     <div class="container">
-        Size <span class="badge badge-secondary">{{ session["size"] }} pizza (s)</span>
+        <div class="card" style="width:400px">
+            <div class="card-body">
+                <div class="container-fluid">
+                    Size <span class="badge badge-secondary">{{ session["size"] }} pizza (s)</span>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="container pt-3">
-        <form action="{{ url_for('flavor') }}" method="post">
-            {% for flavor in flavorList %}
-            <div class="form-check">
-                <label for="{{ flavor['code'] }}" class="form-check-label">
-                    <input type="radio" class="form-check-input" name="flavor" id="{{ flavor['code'] }}"
-                        value="{{ flavor['code'] }}">
-                    {{flavor['description'] }}
-                </label>
+        <div class="card" style="width:400px">
+            <div class="card-body">
+                <form action="{{ url_for('flavor') }}" method="post">
+                    {% for flavor in flavorList %}
+                    <div class="form-check">
+                        <label for="{{ flavor['code'] }}" class="form-check-label">
+                            <input type="radio" class="form-check-input" name="flavor" id="{{ flavor['code'] }}"
+                                value="{{ flavor['code'] }}" {% if flavor['code']=='pepperoni' %} checked{% endif %}>
+                            {{flavor['description'] }}
+                        </label>
+                    </div>
+                    {% endfor %}
+                    <div class="container-fluid pt-3">
+                        <input type="submit" class="btn btn-success" value="Send">
+                    </div>
+                </form>
             </div>
-            {% endfor %}
-            <div class="container-fluid pt-3">
-                <input type="submit" class="btn btn-success" value="Send">
-            </div>
-        </form>
+        </div>
     </div>
 
     <div class="container-fluid pt-3">

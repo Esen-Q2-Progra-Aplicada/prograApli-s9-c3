@@ -10,18 +10,21 @@
     </div>
 
     <div class="container pt-3">
-        <form action="{{ url_for('size') }}" method="post">
-            <div class="form-group">
-                <label for="size">choose your size:</label><br>
-                <select name="size" class="form-control" id="size">
-                    {% for element in sizeList %}
-                    <option value="{{ element['value'] }}">{{ element['description'] }}</option>
-                    {% endfor %}
-                </select>
+        <div class="card" style="width:400px">
+            <div class="card-body">
+                <form action="{{ url_for('size') }}" method="post">
+                    <div class="form-group">
+                        <label for="size">choose your size:</label><br>
+                        <select name="size" class="form-control" id="size">
+                            {% for element in sizeList %}
+                            <option value="{{ element['value'] }}">{{ element['description'] }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <input type="submit" class="btn btn-success" value="Send">
+                </form>
             </div>
-            <input type="submit" class="btn btn-success" value="Send">
-        </form>
-        <br>
+        </div>
     </div>
 
     <div class="container-fluid pt-3">

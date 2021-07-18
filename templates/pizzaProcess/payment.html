@@ -1,98 +1,73 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends '/pizzaProcess/base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>payment</title>
-    <style>
-        table {
-            font-family: arial, sans-serif;
-            border-collapse: collapse;
-            width: 50%;
-        }
+{% block title %}payment{% endblock title %}
 
-        td,
-        th {
-            border: 1px solid #dddddd;
-            text-align: left;
-            padding: 8px;
-        }
+{% block content %}
+<div class="container-fluid">
+    <div class="container-fluid">
+        <h1>payment</h1>
+        <p>review the payment of your order:</p>
+    </div>
 
-        tr:nth-child(even) {
-            background-color: #dddddd;
-        }
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <table class="table table-dark table-striped">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>type</th>
+                            <th>description</th>
+                            <th>price ($)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- size -->
+                        <tr>
+                            <th>{{ orderPriceList[0]["type"] }}</th>
+                            <th>{{ orderPriceList[0]["value"] }} pizza(s)</th>
+                            <th>{{ orderPriceList[0]["price"] }}</th>
+                        </tr>
 
-        .head {
-            background-color: black;
-            color: white;
-        }
+                        <!-- flavor -->
+                        <tr>
+                            <th>{{ orderPriceList[1]["type"] }}</th>
+                            <th>{{ orderPriceList[1]["value"] }} </th>
+                            <th>{{ orderPriceList[1]["price"] }}</th>
+                        </tr>
 
-        .orderTotal {
-            font-size: 22px;
-            font-weight: bold;
-            color: green;
-        }
-    </style>
-</head>
+                        <!-- complement -->
+                        <tr>
+                            <th>{{ orderPriceList[2]["type"] }}</th>
+                            <th>{{ orderPriceList[2]["value"] }} </th>
+                            <th>{{ orderPriceList[2]["price"] }}</th>
+                        </tr>
 
-<body>
-    <h1>payment</h1>
-    <p>this is the payment</p>
+                        <!-- extras -->
+                        {% for item in orderPriceList[3]["value"] %}
+                        <tr>
+                            <th>{{ orderPriceList[3]["type"] }}</th>
+                            <th>{{ item["item"] }} :: ( {{ item["price"] }} ) </th>
+                            <th></th>
+                        </tr>
+                        {% endfor %}
+                        <tr>
+                            <th></th>
+                            <th>total extras:</th>
+                            <th>{{ orderPriceList[3]["total"] }}</th>
+                        </tr>
+                        <tr class="text-success" style="font-size:24px">
+                            <th></th>
+                            <th>{{ orderPriceList[4]["type"] }}:</th>
+                            <th>{{ orderPriceList[4]["price"] }}</th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
-    <table>
-        <thead class="head">
-            <tr>
-                <th>type</th>
-                <th>description</th>
-                <th>price ($)</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- size -->
-            <tr>
-                <th>{{ orderPriceList[0]["type"] }}</th>
-                <th>{{ orderPriceList[0]["value"] }} pizza(s)</th>
-                <th>{{ orderPriceList[0]["price"] }}</th>
-            </tr>
-
-            <!-- flavor -->
-            <tr>
-                <th>{{ orderPriceList[1]["type"] }}</th>
-                <th>{{ orderPriceList[1]["value"] }} </th>
-                <th>{{ orderPriceList[1]["price"] }}</th>
-            </tr>
-
-            <!-- complement -->
-            <tr>
-                <th>{{ orderPriceList[2]["type"] }}</th>
-                <th>{{ orderPriceList[2]["value"] }} </th>
-                <th>{{ orderPriceList[2]["price"] }}</th>
-            </tr>
-
-            <!-- extras -->
-            {% for item in orderPriceList[3]["value"] %}
-            <tr>
-                <th>{{ orderPriceList[3]["type"] }}</th>
-                <th>{{ item["item"] }} :: ( {{ item["price"] }} ) </th>
-                <th></th>
-            </tr>
-            {% endfor %}
-            <tr>
-                <th></th>
-                <th>total extras:</th>
-                <th>{{ orderPriceList[3]["total"] }}</th>
-            </tr>
-            <tr class="orderTotal">
-                <th></th>
-                <th>{{ orderPriceList[4]["type"] }}:</th>
-                <th>{{ orderPriceList[4]["price"] }}</th>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ url_for('home') }}">Home</a>
-</body>
-
-</html>
+    <div class="container-fluid pt-3">
+        <a class="btn btn-primary" href="{{ url_for('home') }}">Home</a>
+    </div>
+</div>
+{% endblock content %}

@@ -1,36 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends '/pizzaProcess/base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>extra</title>
-</head>
+{% block title %}extra{% endblock title %}
 
-<body>
-    <h1>select your extra items:</h1>
+{% block content %}
+<div class="container-fluid">
+    <div class="container-fluid">
+        <h1>select your extra items:</h1>
+        <p>extras options</p>
+    </div>
 
-    family pizza
-    <br>
-    size: {{ session["size"] }}
-    <br>
-    flavor: {{ session["flavor"] }}
-    <br>
-    complement: {{ session["complement"] }}
-    <br><br>
-    <form action="{{ url_for('extra') }}" method="post">
-        {% for extra in extraList %}
-        <input type="checkbox" name="extra" id="{{ extra['code'] }}" value="{{ extra['code'] }}">
-        <label for="{{ extra['code'] }}">{{ extra['description'] }}</label>
-        <br>
-        {% endfor %}
-        <br>
-        <input type="submit" value="Send">
-    </form>
+    <div class="container">
+        <div class="card" style="width:400px">
+            <div class="card-body">
+                <div class="container-fluid">
+                    Size <span class="badge badge-secondary">{{ session["size"] }} pizza (s)</span>
+                </div>
+                <div class="container-fluid">
+                    Flavor <span class="badge badge-secondary">{{ session["flavor"] }}</span>
+                </div>
+                <div class="container-fluid">
+                    Complement <span class="badge badge-secondary">{{ session["complement"] }}</span>
+                </div>
 
-    <br>
-    <a href="{{ url_for('complement') }}">Back</a> <a href="{{ url_for('home') }}">Home</a>
-</body>
+            </div>
+        </div>
+    </div>
 
-</html>
+    <div class="container pt-3">
+        <div class="card" style="width:400px">
+            <div class="card-body">
+                <form action="{{ url_for('extra') }}" method="post">
+                    {% for extra in extraList %}
+                    <input type="checkbox" name="extra" id="{{ extra['code'] }}" value="{{ extra['code'] }}">
+                    <label for="{{ extra['code'] }}">{{ extra['description'] }}</label>
+                    <br>
+                    {% endfor %}
+                    <br>
+                    <input type="submit" class="btn btn-success" value="Send">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-1">
+                <a class="btn btn-primary" href="{{ url_for('complement') }}">Back</a>
+            </div>
+            <div class="col-sm-1">
+                <a class="btn btn-warning" href="{{ url_for('home') }}">Home</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock content %}
