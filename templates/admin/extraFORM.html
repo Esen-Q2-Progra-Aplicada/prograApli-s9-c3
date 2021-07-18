@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends '/admin/base.html' %}
 
 {% if extraObj %}
 
@@ -13,39 +12,46 @@
 
 {% endif %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>extra {{ type }}</title>
-</head>
+{% block title %}extra {{ type }}{% endblock title %}
 
-<body>
-
-
+{% block content %}
+<div class="container">
     <h1>extra {{ type }}</h1>
 
     <form action="{{ url_for('extraFORM', type=type) }}" method="post">
         {% if extraObj %}
-        <label for="idshow">id:</label>
-        <input type="text" id="idshow" name="idshow" value="{{ extraObj['id'] }}" readonly>
-        <br><br>
+        <div class="form-group">
+            <label for="idshow">id:</label>
+            <input type="text" class="form-control" id="idshow" name="idshow" value="{{ extraObj['id'] }}" readonly>
+        </div>
         {% endif %}
-        <label for="description">description:</label>
-        <input type="text" id="description" name="description"
-            value="{% if extraObj %}{{ extraObj['description'] }}{% endif %}">
-        <br><br>
-        <label for="code">code:</label>
-        <input type="text" id="code" name="code" value="{% if extraObj %}{{ extraObj['code'] }}{% endif %}">
-        <br><br>
-        <label for="price">price:</label>
-        <input type="text" id="price" name="price" value="{% if extraObj %}{{ extraObj['price'] }}{% endif %}">
-        <br><br>
+        <div class="form-group">
+            <label for="description">description:</label>
+            <input type="text" class="form-control" id="description" name="description"
+                placeholder="enter description..." value="{% if extraObj %}{{ extraObj['description'] }}{% endif %}">
+        </div>
+
+        <div class="form-group">
+            <label for="code">code:</label>
+            <input type="text" class="form-control" id="code" name="code" placeholder="enter code..."
+                value="{% if extraObj %}{{ extraObj['code'] }}{% endif %}">
+        </div>
+
+        <div class="form-group">
+            <label for="price">price:</label>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">$</span>
+                </div>
+                <input type="text" class="form-control" id="price" name="price" placeholder="enter price..."
+                    value="{% if extraObj %}{{ extraObj['price'] }}{% endif %}">
+            </div>
+        </div>
+
         {% if extraObj %}
         <input type="hidden" name="id" id="id" value="{{ extraObj['id'] }}">
         {% endif %}
-        <input type="submit" value="{{ button }}">
+        <input type="submit" class="btn btn-success" value="{{ button }}">
     </form>
-</body>
-
-</html>
+</div>
+{% endblock content %}

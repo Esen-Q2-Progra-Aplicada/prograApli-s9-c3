@@ -1,45 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends '/admin/base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>flavor crud</title>
-</head>
+{% block title %}flavor crud{% endblock title %}
 
-<body>
-    <h1>flavor crud</h1>
-
-    <a href="{{ url_for('flavorFORM', type='new') }}">create a new flavor</a>
-    <table>
-        <thead>
-            <tr>
-                <th>id</th>
-                <th>description</th>
-                <th>code</th>
-                <th>price</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for element in flavorList %}
-            <tr>
-                <td>{{ element["id"] }}</td>
-                <td>{{ element["description"] }}</td>
-                <td>{{ element["code"] }}</td>
-                <td>{{ element["price"] }}</td>
-                <td><a href="{{ url_for('flavorFORM', type='update') }}&id={{ element['id'] }}">update</a></td>
-                <td>
-                    <form action="{{ url_for('flavorDELETE') }}" method="post">
-                        <input type="hidden" name="id" id="id" value="{{ element['id'] }}">
-                        <input type="submit" value="Delete">
-                    </form>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</body>
-
-</html>
+{% block content %}
+<div class="container-fluid">
+    <div class="container-fluid">
+        <h1>flavor crud</h1>
+        <a class="btn btn-primary" href="{{ url_for('flavorFORM', type='new') }}">create a new flavor</a>
+    </div>
+    <div class="container-fluid pt-3">
+        <table class="table table-dark table-hover">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>description</th>
+                    <th>code</th>
+                    <th>price</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for element in flavorList %}
+                <tr>
+                    <td>{{ element["id"] }}</td>
+                    <td>{{ element["description"] }}</td>
+                    <td>{{ element["code"] }}</td>
+                    <td>{{ element["price"] }}</td>
+                    <td>
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <a class="btn btn-success"
+                                    href="{{ url_for('flavorFORM', type='update') }}&id={{ element['id'] }}">update</a>
+                            </div>
+                            <div class="col-sm-2">
+                                <form action="{{ url_for('flavorDELETE') }}" method="post">
+                                    <input type="hidden" name="id" id="id" value="{{ element['id'] }}">
+                                    <input type="submit" class="btn btn-danger" value="Delete">
+                                </form>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock content %}
