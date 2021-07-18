@@ -1,34 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends '/pizzaProcess/base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>complements</title>
-</head>
+{% block title %}complements{% endblock title %}
 
-<body>
-    <h1>select your complements:</h1>
+{% block content %}
+<div class="container-fluid">
+    <div class="container-fluid">
+        <h1>select your complements:</h1>
+        <p>complement options</p>
+    </div>
 
-    family pizza
-    <br>
-    size: {{ session["size"] }}
-    <br>
-    flavor: {{ session["flavor"] }}
-    <br><br>
-    <form action="{{ url_for('complement') }}" method="post">
-        {% for complement in complementList %}
-        <input type="radio" name="complement" id="{{ complement['code'] }}" value="{{ complement['code'] }}">
-        <label for="{{ complement['code'] }}">{{ complement['description'] }}</label>
-        <br>
-        {% endfor %}
-        <br>
-        <input type="submit" value="Send">
-    </form>
+    <div class="container">
+        <div class="card" style="width:400px">
+            <div class="card-body">
+                <div class="container-fluid">
+                    Size <span class="badge badge-secondary">{{ session["size"] }} pizza (s)</span>
+                </div>
+                <div class="container-fluid">
+                    Flavor <span class="badge badge-secondary">{{ session["flavor"] }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <br>
-    <a href="{{ url_for('flavor') }}">Back</a> <a href="{{ url_for('home') }}">Home</a>
-</body>
+    <div class="container pt-3">
+        <form action="{{ url_for('complement') }}" method="post">
+            {% for complement in complementList %}
+            <div class="form-check">
+                <label for="{{ complement['code'] }}" class="form-check-label">
+                    <input type="radio" class="form-check-input" name="complement" id="{{ complement['code'] }}"
+                        value="{{ complement['code'] }}">
+                    {{ complement['description'] }}
+                </label>
+            </div>
+            {% endfor %}
+            <div class="container-fluid pt-3">
+                <input type="submit" class="btn btn-success" value="Send">
+            </div>
+        </form>
+    </div>
 
-</html>
+    <div class="container-fluid pt-3">
+        <div class="row">
+            <div class="col-sm-1">
+                <a class="btn btn-primary" href="{{ url_for('flavor') }}">Back</a>
+            </div>
+            <div class="col-sm-1">
+                <a class="btn btn-warning" href="{{ url_for('home') }}">Home</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,29 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends '/pizzaProcess/base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>size</title>
-</head>
+{% block title %}size{% endblock title %}
 
-<body>
-    <h1>select the size of your order</h1>
+{% block content %}
+<div class="container-fluid">
+    <div class="container-fluid">
+        <h1>select the size of your order</h1>
+        <p>size options</p>
+    </div>
 
-    <p>size options</p>
+    <div class="container pt-3">
+        <form action="{{ url_for('size') }}" method="post">
+            <div class="form-group">
+                <label for="size">choose your size:</label><br>
+                <select name="size" class="form-control" id="size">
+                    {% for element in sizeList %}
+                    <option value="{{ element['value'] }}">{{ element['description'] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <input type="submit" class="btn btn-success" value="Send">
+        </form>
+        <br>
+    </div>
 
-    <form action="{{ url_for('size') }}" method="post">
-        <label for="size">choose your size:</label><br>
-        <select name="size" id="size">
-            {% for element in sizeList %}
-            <option value="{{ element['value'] }}">{{ element['description'] }}</option>
-            {% endfor %}
-        </select>
-        <input type="submit" value="Send">
-    </form>
-    <br>
-    <a href="{{ url_for('home') }}">Back</a>
-</body>
-
-</html>
+    <div class="container-fluid pt-3">
+        <a class="btn btn-primary" href="{{ url_for('home') }}">Back</a>
+    </div>
+</div>
+{% endblock content %}
