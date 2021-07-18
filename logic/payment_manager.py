@@ -32,12 +32,10 @@ class PaymentManager:
         return price
 
     def checkExtraPrice(self, extraList):
-        print(extraList)
         extraPriceList = []
         total = 0
         for element in extraList:
             elementDict = self.payLogic.getExtraByCode(element)[0]
-            print(elementDict)
             extraPriceList.append(
                 {
                     "item": elementDict["description"],
