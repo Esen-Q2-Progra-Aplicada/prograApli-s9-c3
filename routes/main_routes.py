@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import render_template, request
 
 
 class MainRoutes:
@@ -8,3 +8,11 @@ class MainRoutes:
         def home():
             url = f"{templateFolder}index.html"
             return render_template(url)
+
+        @app.route("/register", methods=["GET", "POST"])
+        def register():
+            if request.method == "GET":
+                url = f"{templateFolder}register.html"
+                return render_template(url)
+            elif request.method == "POST":
+                return "posted"
