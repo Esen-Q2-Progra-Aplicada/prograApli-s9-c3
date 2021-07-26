@@ -115,8 +115,61 @@ CREATE TABLE `size` (
 
 LOCK TABLES `size` WRITE;
 /*!40000 ALTER TABLE `size` DISABLE KEYS */;
-INSERT INTO `size` VALUES (1,'1 pizza',1,11.00),(2,'2 pizzas',2,17.00),(3,'3 pizzas',3,24.00),(5,'4 pizzas',4,40.00);
+INSERT INTO `size` VALUES (1,'1 pizza',1,11.00),(2,'2 pizzas',2,17.00),(3,'3 pizzas',3,24.00);
 /*!40000 ALTER TABLE `size` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `user`
+--
+
+DROP TABLE IF EXISTS `user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `user` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `email` varchar(45) NOT NULL,
+  `password` varchar(60) NOT NULL,
+  `idusertype` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fkusertousertype_idx` (`idusertype`),
+  CONSTRAINT `fkusertousertype` FOREIGN KEY (`idusertype`) REFERENCES `user_type` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user`
+--
+
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (1,'test@gmail.com','123',1);
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `user_type`
+--
+
+DROP TABLE IF EXISTS `user_type`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `user_type` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) NOT NULL,
+  `description` varchar(85) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_type`
+--
+
+LOCK TABLES `user_type` WRITE;
+/*!40000 ALTER TABLE `user_type` DISABLE KEYS */;
+INSERT INTO `user_type` VALUES (1,'admin',NULL),(2,'client',NULL);
+/*!40000 ALTER TABLE `user_type` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -128,4 +181,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-07-12 18:43:35
+-- Dump completed on 2021-07-25 20:23:28
