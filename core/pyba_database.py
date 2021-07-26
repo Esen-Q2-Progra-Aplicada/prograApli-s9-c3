@@ -67,3 +67,14 @@ class PybaDatabase:
             con.commit()
             rows = cursor.rowcount
         return rows
+
+    def getTableAutoIncrementId(self, table):
+        sql = (
+            f"SELECT AUTO_INCREMENT FROM information_schema.TABLES "
+            + f'WHERE TABLE_SCHEMA = "{self.database}" AND TABLE_NAME = "{table}"'
+        )
+        idList = self.executeQuery(sql)
+        if len(idList) > 0:
+            return idList.pop()
+        else:
+            return {}
